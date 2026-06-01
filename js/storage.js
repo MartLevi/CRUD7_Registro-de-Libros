@@ -38,9 +38,20 @@
 		return ok ? record : null;
 	}
 
+	function getAllBooks(useSession = false) {
+		return _read(useSession);
+	}
+
+	function getBookById(id, useSession = false) {
+		const items = _read(useSession);
+		return items.find((b) => b.id === id) || null;
+	}
+
 	// Expose API
 	window.StorageModule = {
 		addBook,
+		getAllBooks,
+		getBookById,
 	};
 })();
 
