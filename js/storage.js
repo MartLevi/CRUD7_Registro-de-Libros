@@ -63,6 +63,16 @@
 		return _write(filtered, useSession);
 	}
 
+	function clearAll(useSession = false) {
+		try {
+			_getStore(useSession).removeItem(STORAGE_KEY);
+			return true;
+		} catch (e) {
+			console.error('storage: clear error', e);
+			return false;
+		}
+	}
+
 	// Expose API
 	window.StorageModule = {
 		addBook,
@@ -70,6 +80,7 @@
 		getBookById,
 		updateBook,
 		deleteBook,
+		clearAll,
 	};
 })();
 
