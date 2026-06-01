@@ -29,6 +29,18 @@
 		return 'b_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
 	}
 
-	
+	function addBook(book, useSession = false) {
+		const items		= _read(useSession);
+		const id		= _generateId();
+		const record	= Object.assign({ id, createdAt: new Date().toISOString() }, book);
+		items.push(record);
+		const ok 		= _write(items, useSession);
+		return ok ? record : null;
+	}
+
+	// Expose API
+	window.StorageModule = {
+		addBook,
+	};
 })();
 
