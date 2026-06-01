@@ -47,11 +47,21 @@
 		return items.find((b) => b.id === id) || null;
 	}
 
+	function updateBook(id, updates, useSession = false) {
+		const items = _read(useSession);
+		const idx = items.findIndex((b) => b.id === id);
+		if (idx === -1) return null;
+		items[idx] = Object.assign({}, items[idx], updates, { updatedAt: new Date().toISOString() });
+		const ok = _write(items, useSession);
+		return ok ? items[idx] : null;
+	}
+
 	// Expose API
 	window.StorageModule = {
 		addBook,
 		getAllBooks,
 		getBookById,
+		updateBook,
 	};
 })();
 
