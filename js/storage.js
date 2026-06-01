@@ -56,12 +56,20 @@
 		return ok ? items[idx] : null;
 	}
 
+	function deleteBook(id, useSession = false) {
+		const items = _read(useSession);
+		const filtered = items.filter((b) => b.id !== id);
+		if (filtered.length === items.length) return false;
+		return _write(filtered, useSession);
+	}
+
 	// Expose API
 	window.StorageModule = {
 		addBook,
 		getAllBooks,
 		getBookById,
 		updateBook,
+		deleteBook,
 	};
 })();
 
