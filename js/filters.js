@@ -24,8 +24,24 @@
 			return true;
 		});
 	}
+
+	function sortBooks(books = [], sortBy = 'createdAt', order = 'desc') {
+		const dir = order === 'asc' ? 1 : -1;
+		return books.slice().sort((a, b) => {
+			const va = a[sortBy];
+			const vb = b[sortBy];
+			if (va == null && vb == null) return 0;
+			if (va == null) return -1 * dir;
+			if (vb == null) return 1 * dir;
+			if (va > vb) return 1 * dir;
+			if (va < vb) return -1 * dir;
+			return 0;
+		});
+	}
+
 	window.Filters = {
 		filterBooks,
+		sortBooks
 	};
 })();
 
