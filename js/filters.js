@@ -39,9 +39,15 @@
 		});
 	}
 
+	function applyFiltersAndSort(books, options = {}, sort = { sortBy: 'createdAt', order: 'desc' }) {
+		const filtered = filterBooks(books, options);
+		return sortBooks(filtered, sort.sortBy, sort.order);
+	}
+
 	window.Filters = {
 		filterBooks,
-		sortBooks
+		sortBooks,
+		applyFiltersAndSort,
 	};
 })();
 
