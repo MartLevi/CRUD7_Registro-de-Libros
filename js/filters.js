@@ -3,20 +3,27 @@
 		if (!query) return true;
 		const q = String(query).toLowerCase();
 		return (
+			(book.titulo && book.titulo.toLowerCase().includes(q)) ||
+			(book.autor && book.autor.toLowerCase().includes(q)) ||
+			(book.notas && book.notas.toLowerCase().includes(q)) ||
 			(book.title && book.title.toLowerCase().includes(q)) ||
-			(book.author && book.author.toLowerCase().includes(q)) ||
-			(book.description && book.description.toLowerCase().includes(q))
+			(book.author && book.author.toLowerCase().includes(q))
 		);
 	}
 
 	function filterBooks(books = [], options = {}) {
-		const { query, author, yearFrom, yearTo, readStatus } = options;
+		const { query, autor, author, yearFrom, yearTo, estado, genero, calificacion, readStatus } = options;
 		return books.filter((b) => {
 			if (!b) return false;
 			if (query && !_matchQuery(b, query)) return false;
-			if (author && String(b.author).toLowerCase() !== String(author).toLowerCase()) return false;
-			if (yearFrom && b.year && Number(b.year) < Number(yearFrom)) return false;
-			if (yearTo && b.year && Number(b.year) > Number(yearTo)) return false;
+			const bookAuthor = b.autor || b.author || '';
+			const bookYear = Number(b.anio || b.year);
+			if ((autor || author) && String(bookAuthor).toLowerCase() !== String(autor || author).toLowerCase()) return false;
+			if (yearFrom && bookYear && bookYear < Number(yearFrom)) return false;
+			if (yearTo && bookYear && bookYear > Number(yearTo)) return false;
+			if (estado && estado !== 'todos' && b.estado !== estado) return false;
+			if (genero && genero !== 'todos' && b.genero !== genero) return false;
+			if (calificacion && Number(b.calificacion) !== Number(calificacion)) return false;
 			if (typeof readStatus !== 'undefined' && b.read !== undefined) {
 				const want = readStatus === true || String(readStatus) === 'true';
 				if (Boolean(b.read) !== want) return false;
