@@ -1,5 +1,6 @@
 (function () {
 	const STORAGE_KEY = 'crud7_books';
+	const SESSION_START_KEY = 'crud7_session_start';
 
 	function _getStore(useSession = false) {
 		return useSession ? window.sessionStorage : window.localStorage;
@@ -32,7 +33,8 @@
 	function addBook(book, useSession = false) {
 		const items		= _read(useSession);
 		const id		= _generateId();
-		const record	= Object.assign({ id, createdAt: new Date().toISOString() }, book);
+		const now		= new Date().toISOString();
+		const record	= Object.assign({ id, createdAt: now, fechaCreacion: now }, book);
 		items.push(record);
 		const ok 		= _write(items, useSession);
 		return ok ? record : null;
@@ -73,6 +75,20 @@
 		}
 	}
 
+	function getSessionStart() {
+		try {
+			let start = window.sessionStorage.getItem(SESSION_START_KEY);
+			if (!start) {
+				start = new Date().toISOString();
+				window.sessionStorage.setItem(SESSION_START_KEY, start);
+			}
+			return start;
+		} catch (e) {
+			console.error('storage: session start error', e);
+			return new Date().toISOString();
+		}
+	}
+
 	// Expose API
 	window.StorageModule = {
 		addBook,
@@ -81,6 +97,15 @@
 		updateBook,
 		deleteBook,
 		clearAll,
+		getSessionStart,
 	};
+
+	// Backwards-compatible globals used by the existing dashboard module.
+	window.addBook 			= addBook;
+	window.getAllBooks 		= getAllBooks;
+	window.getBookById 		= getBookById;
+	window.updateBook 		= updateBook;
+	window.deleteBook 		= deleteBook;
+	window.getSessionStart 	= getSessionStart;
 })();
 
