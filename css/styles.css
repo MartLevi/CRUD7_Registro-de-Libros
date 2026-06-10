@@ -81,3 +81,143 @@ body.dark-mode {
   --shadow-lg:    0 10px 32px rgba(0,0,0,.45);
   --shadow-modal: 0 24px 64px rgba(0,0,0,.55);
 }
+
+/* ============================================================
+   3. RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+               'Helvetica Neue', Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  display: flex;
+  min-height: 100vh;
+  transition: background var(--transition), color var(--transition);
+}
+
+img  { max-width: 100%; display: block; }
+ul, ol { list-style: none; }
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+
+/* ============================================================
+   4. LAYOUT
+   ============================================================ */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 200;
+  transition: transform var(--transition);
+  overflow-y: auto;
+}
+
+#main-content {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+  padding: var(--sp-xl);
+  transition: margin-left var(--transition);
+}
+
+/* ============================================================
+   5. SIDEBAR
+   ============================================================ */
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  padding: var(--sp-xl) var(--sp-lg);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  flex-shrink: 0;
+}
+
+.logo-icon      { font-size: 1.8rem; }
+.sidebar-title  { font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: -.02em; }
+
+.sidebar-nav {
+  flex: 1;
+  padding: var(--sp-lg) var(--sp-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
+  width: 100%;
+  padding: 10px var(--sp-md);
+  border: none;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--sidebar-text);
+  font-size: .93rem;
+  font-weight: 500;
+  text-align: left;
+  transition: background var(--transition), color var(--transition);
+}
+
+.nav-btn:hover  { background: var(--sidebar-hover); color: #fff; }
+.nav-btn.active { background: var(--sidebar-active); color: #fff; font-weight: 600; }
+.nav-icon       { font-size: 1.1rem; min-width: 20px; }
+
+.sidebar-footer {
+  padding: var(--sp-lg);
+  border-top: 1px solid rgba(255,255,255,.08);
+  flex-shrink: 0;
+}
+
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-sm);
+  width: 100%;
+  padding: var(--sp-sm) var(--sp-md);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r-md);
+  background: rgba(255,255,255,.06);
+  color: var(--sidebar-text);
+  font-size: .9rem;
+  transition: background var(--transition);
+}
+
+.dark-toggle:hover { background: rgba(255,255,255,.13); }
+.toggle-icon       { font-size: 1rem; }
+
+/* Hamburger — mobile only */
+#btn-hamburger {
+  display: none;
+  position: fixed;
+  top: var(--sp-md);
+  left: var(--sp-md);
+  z-index: 300;
+  width: 40px; height: 40px;
+  border: none;
+  border-radius: var(--r-sm);
+  background: var(--sidebar-bg);
+  color: #fff;
+  font-size: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+/* Sidebar overlay — closes sidebar on mobile tap-outside */
+#sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.42);
+  z-index: 150;
+}
