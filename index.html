@@ -7,6 +7,45 @@
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+
+    <!-- ═══════════════════════════════════════════════════════
+       HAMBURGER (visible only on mobile)
+  ══════════════════════════════════════════════════════════ -->
+  <button id="btn-hamburger" aria-label="Abrir menú">☰</button>
+
+  <!-- Overlay to close sidebar on mobile tap-outside -->
+  <div id="sidebar-overlay"></div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SIDEBAR
+  ══════════════════════════════════════════════════════════ -->
+  <aside id="sidebar" role="navigation" aria-label="Menú principal">
+
+    <div class="sidebar-logo">
+      <span class="logo-icon" aria-hidden="true">📚</span>
+      <h1 class="sidebar-title">LibroLog</h1>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button class="nav-btn active" data-view="dashboard">
+        <span class="nav-icon" aria-hidden="true">📊</span>
+        Dashboard
+      </button>
+      <button class="nav-btn" data-view="libros" aria-current="page">
+        <span class="nav-icon" aria-hidden="true">📖</span>
+        Mis Libros
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button id="btn-dark-mode" class="dark-toggle" aria-label="Cambiar tema">
+        <span class="toggle-icon" aria-hidden="true">🌙</span>
+        <span class="toggle-label">Modo Oscuro</span>
+      </button>
+    </div>
+
+  </aside>
+  
   <!-- ═══════════════════════════════════════════════════════
        SCRIPTS  (dependency order)
   ══════════════════════════════════════════════════════════ -->
