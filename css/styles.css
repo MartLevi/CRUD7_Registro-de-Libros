@@ -1,0 +1,83 @@
+/* ============================================================
+   1. CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  /* Core palette — light mode */
+  --clr-bg:          #f0f2f7;
+  --clr-surface:     #ffffff;
+  --clr-surface-2:   #f8f9fc;
+  --clr-border:      #e2e8f0;
+  --clr-text:        #1a202c;
+  --clr-text-muted:  #718096;
+
+  /* Brand */
+  --clr-primary:       #6366f1;
+  --clr-primary-h:     #4f46e5;
+  --clr-primary-light: #eef2ff;
+
+  /* Semantic */
+  --clr-danger:    #ef4444;
+  --clr-success:   #22c55e;
+  --clr-warning:   #f59e0b;
+  --clr-info:      #3b82f6;
+  --clr-star:      #f59e0b;
+
+  /* Status badge colors */
+  --clr-leido:      #22c55e;
+  --clr-leido-bg:   #dcfce7;
+  --clr-leyendo:    #f59e0b;
+  --clr-leyendo-bg: #fef3c7;
+  --clr-noleido:    #94a3b8;
+  --clr-noleido-bg: #f1f5f9;
+
+  /* Sidebar (always dark) */
+  --sidebar-bg:      #1e1b4b;
+  --sidebar-text:    #c7d2fe;
+  --sidebar-hover:   rgba(99,102,241,.18);
+  --sidebar-active:  #6366f1;
+  --sidebar-w:       260px;
+
+  /* Spacing */
+  --sp-xs:  4px;
+  --sp-sm:  8px;
+  --sp-md:  16px;
+  --sp-lg:  24px;
+  --sp-xl:  32px;
+  --sp-2xl: 48px;
+
+  /* Radius */
+  --r-sm:   6px;
+  --r-md:   12px;
+  --r-lg:   18px;
+  --r-xl:   24px;
+  --r-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+  --shadow-md:    0 4px 12px rgba(0,0,0,.09), 0 2px 6px rgba(0,0,0,.06);
+  --shadow-lg:    0 10px 32px rgba(0,0,0,.11), 0 4px 12px rgba(0,0,0,.06);
+  --shadow-modal: 0 24px 64px rgba(0,0,0,.22);
+
+  --transition:      .22s ease;
+  --transition-slow: .45s ease;
+}
+
+/* ============================================================
+   2. DARK MODE OVERRIDES  (toggled by JS via body.dark-mode)
+   ============================================================ */
+body.dark-mode {
+  --clr-bg:          #0f172a;
+  --clr-surface:     #1e293b;
+  --clr-surface-2:   #162032;
+  --clr-border:      #334155;
+  --clr-text:        #f1f5f9;
+  --clr-text-muted:  #94a3b8;
+  --clr-primary-light: rgba(99,102,241,.14);
+  --clr-leido-bg:    rgba(34,197,94,.12);
+  --clr-leyendo-bg:  rgba(245,158,11,.12);
+  --clr-noleido-bg:  rgba(148,163,184,.10);
+  --shadow-sm:    0 1px 3px rgba(0,0,0,.35);
+  --shadow-md:    0 4px 12px rgba(0,0,0,.35);
+  --shadow-lg:    0 10px 32px rgba(0,0,0,.45);
+  --shadow-modal: 0 24px 64px rgba(0,0,0,.55);
+}
