@@ -2,6 +2,10 @@
 
 Proyecto Final — Desarrollo y Técnicas de Aplicaciones Web
 
+## Grupo
+
+GT01
+
 ## Integrantes
 
 | Nombre | Carné |
@@ -29,7 +33,7 @@ CRUD 7 — Registro de Libros
 ## Funcionalidades
 
 - CRUD completo de libros (crear, leer, actualizar, eliminar)
-- Filtros por título, autor, estado y género
+- Filtros por título, autor, estado, género, año y calificación
 - Widget de calificación por estrellas (1–5)
 - Dashboard con estadísticas calculadas en un Web Worker
 - Barra de progreso de lectura

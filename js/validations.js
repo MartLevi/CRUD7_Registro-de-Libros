@@ -28,7 +28,7 @@ function validateBook(data) {
     ['genero',        validateGenero(data.genero)],
     ['anio',          validateAnio(data.anio)],
     ['estado',        validateEstado(data.estado)],
-    ['calificacion',  validateCalificacion(data.calificacion)]
+    ['calificacion',  validateCalificacion(data.calificacion, data.estado)]
   ];
 
   checks.forEach(([field, msg]) => {
@@ -74,9 +74,16 @@ function validateEstado(v) {
   return null;
 }
 
-function validateCalificacion(v) {
-  const n = parseInt(v, 10);
-  if (isNaN(n) || n < 1 || n > 5) return 'Selecciona una calificación (1–5 estrellas).';
+function validateCalificacion(v, estado) {
+  const raw = String(v ?? '').trim();
+  const estadoNormalizado = String(estado ?? '').trim();
+  const n = Number(raw);
+
+  if ((raw === '' || raw === '0') && estadoNormalizado !== 'leido') return null;
+  if (estadoNormalizado === 'leido' && (!Number.isInteger(n) || n < 1 || n > 5)) {
+    return 'Selecciona una calificación para los libros leídos.';
+  }
+  if (!Number.isInteger(n) || n < 0 || n > 5) return 'Selecciona una calificación válida (1-5 estrellas).';
   return null;
 }
 

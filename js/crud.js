@@ -31,7 +31,10 @@ function renderBooks(books) {
       const hasFilter =
         (document.getElementById('search-input')?.value || '') ||
         (document.getElementById('filter-estado')?.value !== 'todos') ||
-        (document.getElementById('filter-genero')?.value !== 'todos');
+        (document.getElementById('filter-genero')?.value !== 'todos') ||
+        (document.getElementById('filter-year-from')?.value || '') ||
+        (document.getElementById('filter-year-to')?.value || '') ||
+        (document.getElementById('filter-calificacion')?.value || '');
       if (emptyBtn) emptyBtn.style.display = hasFilter ? 'none' : '';
       return;
     }
@@ -283,7 +286,7 @@ function createBook(raw) {
       genero:            raw.genero,
       anio:              parseInt(raw.anio, 10),
       estado:            raw.estado,
-      calificacion:      parseInt(raw.calificacion, 10),
+      calificacion:      parseInt(raw.calificacion, 10) || 0,
       notas:             raw.notas.trim(),
       fechaCreacion:     now,
       fechaModificacion: now
@@ -317,7 +320,7 @@ function updateBook(raw) {
       genero:            raw.genero,
       anio:              parseInt(raw.anio, 10),
       estado:            raw.estado,
-      calificacion:      parseInt(raw.calificacion, 10),
+      calificacion:      parseInt(raw.calificacion, 10) || 0,
       notas:             raw.notas.trim(),
       fechaModificacion: new Date().toISOString()
     };
@@ -326,6 +329,7 @@ function updateBook(raw) {
     closeModal();
     triggerFilter();
     refreshDashboard();
+    refreshGeneroOptions();
     showToast('✅ Libro actualizado correctamente.', 'success');
   } catch (error) {
     console.error('[crud] Error actualizando libro:', error);
