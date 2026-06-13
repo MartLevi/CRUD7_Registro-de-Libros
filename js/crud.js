@@ -31,7 +31,10 @@ function renderBooks(books) {
       const hasFilter =
         (document.getElementById('search-input')?.value || '') ||
         (document.getElementById('filter-estado')?.value !== 'todos') ||
-        (document.getElementById('filter-genero')?.value !== 'todos');
+        (document.getElementById('filter-genero')?.value !== 'todos') ||
+        (document.getElementById('filter-year-from')?.value || '') ||
+        (document.getElementById('filter-year-to')?.value || '') ||
+        (document.getElementById('filter-calificacion')?.value || '');
       if (emptyBtn) emptyBtn.style.display = hasFilter ? 'none' : '';
       return;
     }
@@ -326,6 +329,7 @@ function updateBook(raw) {
     closeModal();
     triggerFilter();
     refreshDashboard();
+    refreshGeneroOptions();
     showToast('✅ Libro actualizado correctamente.', 'success');
   } catch (error) {
     console.error('[crud] Error actualizando libro:', error);

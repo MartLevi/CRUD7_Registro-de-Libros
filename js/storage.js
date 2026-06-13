@@ -1,6 +1,7 @@
 (function () {
 	const STORAGE_KEY = 'crud7_books';
 	const SESSION_START_KEY = 'crud7_session_start';
+	const DARK_MODE_KEY = 'crud7_dark_mode';
 
 	function _getStore(useSession = false) {
 		return useSession ? window.sessionStorage : window.localStorage;
@@ -24,6 +25,10 @@
 			console.error('storage: write error', e);
 			return false;
 		}
+	}
+
+	function saveAllBooks(items, useSession = false) {
+		return _write(Array.isArray(items) ? items : [], useSession);
 	}
 
 	function _generateId() {
@@ -89,23 +94,54 @@
 		}
 	}
 
+	function initSession() {
+		return getSessionStart();
+	}
+
+	function saveDarkMode(isDark) {
+		try {
+			window.localStorage.setItem(DARK_MODE_KEY, JSON.stringify(Boolean(isDark)));
+			return true;
+		} catch (e) {
+			console.error('storage: dark mode write error', e);
+			return false;
+		}
+	}
+
+	function getDarkMode() {
+		try {
+			return JSON.parse(window.localStorage.getItem(DARK_MODE_KEY) || 'false');
+		} catch (e) {
+			console.error('storage: dark mode read error', e);
+			return false;
+		}
+	}
+
 	// Expose API
 	window.StorageModule = {
 		addBook,
+		saveAllBooks,
 		getAllBooks,
 		getBookById,
 		updateBook,
 		deleteBook,
 		clearAll,
+		initSession,
 		getSessionStart,
+		saveDarkMode,
+		getDarkMode,
 	};
 
 	// Backwards-compatible globals used by the existing dashboard module.
 	window.addBook 			= addBook;
+	window.saveAllBooks 	= saveAllBooks;
 	window.getAllBooks 		= getAllBooks;
 	window.getBookById 		= getBookById;
 	window.updateBook 		= updateBook;
 	window.deleteBook 		= deleteBook;
+	window.initSession 		= initSession;
 	window.getSessionStart 	= getSessionStart;
+	window.saveDarkMode 	= saveDarkMode;
+	window.getDarkMode 		= getDarkMode;
 })();
 

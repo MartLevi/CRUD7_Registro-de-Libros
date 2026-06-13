@@ -256,7 +256,8 @@ input, select, textarea { font-family: inherit; font-size: inherit; color: inher
   border: 1px solid var(--clr-border);
 }
 
-.filters-bar input[type="text"] {
+.filters-bar input[type="text"],
+.filters-bar input[type="number"] {
   flex: 1;
   min-width: 170px;
   padding: 8px var(--sp-md);
@@ -267,7 +268,8 @@ input, select, textarea { font-family: inherit; font-size: inherit; color: inher
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-.filters-bar input[type="text"]:focus {
+.filters-bar input[type="text"]:focus,
+.filters-bar input[type="number"]:focus {
   border-color: var(--clr-primary);
   box-shadow: 0 0 0 3px rgba(99,102,241,.12);
 }
@@ -814,6 +816,7 @@ body.dark-mode .btn-delete { background: rgba(239,68,68,.15);  color: #fca5a5; }
   }
 
   .filters-bar input[type="text"],
+  .filters-bar input[type="number"],
   .filters-bar select { width: 100%; }
 
   .modal { padding: var(--sp-lg); }

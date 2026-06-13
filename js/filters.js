@@ -51,10 +51,109 @@
 		return sortBooks(filtered, sort.sortBy, sort.order);
 	}
 
+	function readFilterOptions() {
+		return {
+			query: document.getElementById('search-input')?.value.trim() || '',
+			estado: document.getElementById('filter-estado')?.value || 'todos',
+			genero: document.getElementById('filter-genero')?.value || 'todos',
+			yearFrom: document.getElementById('filter-year-from')?.value || '',
+			yearTo: document.getElementById('filter-year-to')?.value || '',
+			calificacion: document.getElementById('filter-calificacion')?.value || '',
+		};
+	}
+
+	function triggerFilter() {
+		try {
+			const books = typeof getAllBooks === 'function' ? getAllBooks() : [];
+			const filtered = applyFiltersAndSort(
+				books,
+				readFilterOptions(),
+				{ sortBy: 'fechaCreacion', order: 'desc' }
+			);
+
+			if (typeof renderBooks === 'function') {
+				renderBooks(filtered);
+			}
+		} catch (error) {
+			console.error('[filters] Error aplicando filtros:', error);
+		}
+	}
+
+	function refreshGeneroOptions() {
+		try {
+			const select = document.getElementById('filter-genero');
+			if (!select) return;
+
+			const currentValue = select.value || 'todos';
+			const books = typeof getAllBooks === 'function' ? getAllBooks() : [];
+			const genres = [...new Set(books.map(book => book.genero).filter(Boolean))]
+				.sort((a, b) => a.localeCompare(b, 'es'));
+
+			select.innerHTML = '<option value="todos">Todos los géneros</option>';
+			genres.forEach(genre => {
+				const option = document.createElement('option');
+				option.value = genre;
+				option.textContent = genre;
+				select.appendChild(option);
+			});
+
+			select.value = genres.includes(currentValue) ? currentValue : 'todos';
+		} catch (error) {
+			console.error('[filters] Error actualizando géneros:', error);
+		}
+	}
+
+	function clearFilters() {
+		const search = document.getElementById('search-input');
+		const estado = document.getElementById('filter-estado');
+		const genero = document.getElementById('filter-genero');
+		const yearFrom = document.getElementById('filter-year-from');
+		const yearTo = document.getElementById('filter-year-to');
+		const calificacion = document.getElementById('filter-calificacion');
+
+		if (search) search.value = '';
+		if (estado) estado.value = 'todos';
+		if (genero) genero.value = 'todos';
+		if (yearFrom) yearFrom.value = '';
+		if (yearTo) yearTo.value = '';
+		if (calificacion) calificacion.value = '';
+
+		triggerFilter();
+	}
+
+	function initFilters() {
+		try {
+			const search = document.getElementById('search-input');
+			const controls = [
+				document.getElementById('filter-estado'),
+				document.getElementById('filter-genero'),
+				document.getElementById('filter-year-from'),
+				document.getElementById('filter-year-to'),
+				document.getElementById('filter-calificacion'),
+			];
+
+			search?.addEventListener('input', triggerFilter);
+			controls.forEach(control => control?.addEventListener('change', triggerFilter));
+			document.getElementById('btn-clear-filters')?.addEventListener('click', clearFilters);
+
+			refreshGeneroOptions();
+		} catch (error) {
+			console.error('[filters] Error inicializando filtros:', error);
+		}
+	}
+
 	window.Filters = {
 		filterBooks,
 		sortBooks,
 		applyFiltersAndSort,
+		readFilterOptions,
+		triggerFilter,
+		refreshGeneroOptions,
+		initFilters,
 	};
+
+	window.initFilters = initFilters;
+	window.triggerFilter = triggerFilter;
+	window.refreshGeneroOptions = refreshGeneroOptions;
 })();
 

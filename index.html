@@ -81,6 +81,30 @@
         <select id="filter-genero" aria-label="Filtrar por género">
           <option value="todos">Todos los géneros</option>
         </select>
+        <input
+          type="number"
+          id="filter-year-from"
+          min="1000"
+          max="2026"
+          placeholder="Año desde"
+          aria-label="Filtrar desde año"
+        />
+        <input
+          type="number"
+          id="filter-year-to"
+          min="1000"
+          max="2026"
+          placeholder="Año hasta"
+          aria-label="Filtrar hasta año"
+        />
+        <select id="filter-calificacion" aria-label="Filtrar por calificación">
+          <option value="">Todas las calificaciones</option>
+          <option value="5">5 estrellas</option>
+          <option value="4">4 estrellas</option>
+          <option value="3">3 estrellas</option>
+          <option value="2">2 estrellas</option>
+          <option value="1">1 estrella</option>
+        </select>
         <button id="btn-clear-filters" class="btn btn-secondary">✕ Limpiar</button>
       </div>
 
