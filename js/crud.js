@@ -286,7 +286,7 @@ function createBook(raw) {
       genero:            raw.genero,
       anio:              parseInt(raw.anio, 10),
       estado:            raw.estado,
-      calificacion:      parseInt(raw.calificacion, 10),
+      calificacion:      parseInt(raw.calificacion, 10) || 0,
       notas:             raw.notas.trim(),
       fechaCreacion:     now,
       fechaModificacion: now
@@ -320,7 +320,7 @@ function updateBook(raw) {
       genero:            raw.genero,
       anio:              parseInt(raw.anio, 10),
       estado:            raw.estado,
-      calificacion:      parseInt(raw.calificacion, 10),
+      calificacion:      parseInt(raw.calificacion, 10) || 0,
       notas:             raw.notas.trim(),
       fechaModificacion: new Date().toISOString()
     };
